@@ -1,4 +1,7 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 module.exports = {
   entry: './src/index.js',
@@ -7,6 +10,13 @@ module.exports = {
     path: path.resolve(__dirname, '../dist')
   },
   mode: 'development',
+  devServer: {
+    contentBase: './dist'
+  },
+  devtool: 'inline-source-map',
+  resolve: {
+      extensions: ['.js', '.css', '.less', '.ejs']
+  },
   module: {
     rules: [
       {
@@ -17,12 +27,20 @@ module.exports = {
         ]
       },
       {
-        test: /\.jsx?$/,
-        use: [
-          'babel-loader'
-        ],
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader'
+        },
         exclude: /node_modules/
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'yxz_ad'
+    }),
+    new CleanWebpackPlugin(
+      ['dist']
+    )
+  ]
 };
