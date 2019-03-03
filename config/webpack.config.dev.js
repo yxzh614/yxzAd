@@ -4,9 +4,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js',
+    login: './src/pages/login/index.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name]/bundle.js',
     path: path.resolve(__dirname, '../dist')
   },
   mode: 'development',
@@ -38,6 +41,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'yxz_ad'
+    }),
+    new HtmlWebpackPlugin({
+      title: '登录',
+      filename: 'login/index.html'
     }),
     new CleanWebpackPlugin(
       ['dist']
