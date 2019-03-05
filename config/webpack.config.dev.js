@@ -1,13 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-
+const { htmlPlugins, entry } = require('./util');
+console.log(htmlPlugins, entry)
 
 module.exports = {
-  entry: {
-    app: './src/index.js',
-    login: './src/pages/login/index.js'
-  },
+  entry,
   output: {
     filename: '[name]/bundle.js',
     path: path.resolve(__dirname, '../dist')
@@ -39,15 +37,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'yxz_ad'
-    }),
-    new HtmlWebpackPlugin({
-      title: '登录',
-      filename: 'login/index.html'
-    }),
+    ...htmlPlugins,
     new CleanWebpackPlugin(
-      ['dist']
+        'dist', {
+        root: path.resolve(__dirname, '../'),
+      }
     )
   ]
 };
